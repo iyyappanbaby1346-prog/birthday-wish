@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Thangoo! ❤️</title>
+    <style>
+        :root {
+            --primary-pink: #ff6b81;
+            --accent-gold: #fffeec;
+            --glass-bg: rgba(255, 255, 255, 0.2);
+            --glass-border: rgba(255, 255, 255, 0.35);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: #fff;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glassmorphism Standard Card */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            padding: 30px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        /* Page System */
+        .page {
+            display: none;
+            min-height: 100vh;
+            width: 100%;
+            padding: 20px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .page.active {
+            display: flex;
+            animation: fadeIn 0.6s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Buttons */
+        .btn {
+            background: #fff;
+            color: #e73c7e;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        /* --- PAGE 1: LOGIN --- */
+        .welcome-title {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            animation: floatText 3s ease-in-out infinite alternate;
+        }
+
+        .login-card input {
+            width: 100%;
+            padding: 14px;
+            margin: 15px 0 5px 0;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            text-align: center;
+        }
+
+        .login-card input::placeholder { color: rgba(255,255,255,0.7); }
+        .login-card input:focus { background: rgba(255,255,255,0.25); }
+        .error-txt { color: #ff4757; font-size: 0.9rem; font-weight: bold; display: none; margin-top: 5px; }
+
+        @keyframes floatText {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+
+        /* --- PAGE 2: CELEBRATION & BUTTERFLIES --- */
+        .canvas-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        /* Decorative Floating Elements */
+        .balloon {
+            position: absolute;
+            bottom: -100px;
+            width: 50px;
+            height: 65px;
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            animation: flyUp 8s linear infinite;
+            opacity: 0.7;
+        }
+        .confetti {
+            position: absolute;
+            top: -20px;
+            width: 10px;
+            height: 20px;
+            animation: fallDown 6s linear infinite;
+        }
+
+        @keyframes flyUp {
+            0% { transform: translateY(0) translateX(0); bottom: -100px; }
+            100% { transform: translateY(-110vh) translateX(50px); }
+        }
+        @keyframes fallDown {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(110vh) rotate(720deg); }
+        }
+
+        /* Glassy Interactive Frame */
+        .glass-interactive {
+            z-index: 2;
+            max-width: 500px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .butterfly-box {
+            position: relative;
+            height: 250px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .bfly {
+            position: absolute;
+            font-size: 3rem;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.2s;
+            animation: flutter 4s ease-in-out infinite alternate;
+        }
+        .bfly:hover { transform: scale(1.2) rotate(10deg); }
+
+        /* Butterfly paths */
+        #bf1 { top: 10%; left: 10%; animation-delay: 0.2s; }
+        #bf2 { top: 20%; left: 70%; animation-delay: 0.8s; }
+        #bf3 { top: 55%; left: 40%; animation-delay: 0.5s; }
+        #bf4 { top: 70%; left: 15%; animation-delay: 1.2s; }
+        #bf5 { top: 65%; left: 75%; animation-delay: 0s; }
+
+        @keyframes flutter {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.05) rotate(-5deg); }
+            100% { transform: translateY(5px) scale(0.95) rotate(5deg); }
+        }
+
+        .display-msg {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 12px;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border-left: 4px solid #fff;
+        }
+
+        /* --- PAGE 3: GALLERY --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 15px;
+            width: 100%;
+            max-width: 550px;
+            margin-top: 20px;
+        }
+
+        .photo-frame {
+            background: white;
+            padding: 8px 8px 25px 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            transform: rotate(var(--rot));
+            transition: transform 0.3s ease;
+        }
+
+        .photo-frame:hover {
+            transform: rotate(0deg) scale(1.08);
+            z-index: 5;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+        }
+
+        /* --- PAGE 4: BIG TITLE WISH --- */
+        .thangoo-card {
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid var(--glass-border);
+            padding: 40px 20px;
+            border-radius: 25px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .big-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(to right, #fff, #ffeaa7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            animation: pulseTitle 2s infinite alternate;
+        }
+
+        @keyframes pulseTitle {
+            0% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(255,255,255,0.3)); }
+            100% { transform: scale(1.04); filter: drop-shadow(0 0 10px rgba(255,255,255,0.6)); }
+        }
+
+        /* --- PAGE 5: LONG SENTENCE (MOBILE RESPONSIVE) --- */
+        .long-wish-card {
+            max-width: 600px;
+            width: 90%;
+            padding: 30px;
+            text-align: justify;
+        }
+
+        .long-wish-card h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .paragraph-wish {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            letter-spacing: 0.5px;
+            color: #fff;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 480px) {
+            .big-title { font-size: 2.6rem; }
+            .welcome-title { font-size: 1.8rem; }
+            .bfly { font-size: 2.3rem; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .photo-frame img { height: 110px; }
+            .paragraph-wish { font-size: 1rem; line-height: 1.6; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PAGE 1: ANIMATED LOGIN -->
+    <div id="page1" class="page active">
+        <div class="glass-card login-card">
+            <h1 class="welcome-title">✨ Unboxing A Surprise... ✨</h1>
+            <p>Enter the magic word to open your gift</p>
+            <input type="password" id="passInput" placeholder="Hint: birthday">
+            <div id="errorMsg" class="error-txt">Incorrect password! Try "birthday"</div>
+            <button class="btn" onclick="verifyLogin()">Unlock Gift 🔓</button>
+        </div>
+    </div>
+
+    <!-- PAGE 2: GLASSY BUTTERFLY INTERACTIVE -->
+    <div id="page2" class="page">
+        <!-- Floating Celebrations Layer -->
+        <div class="canvas-container" id="celebrationLayer"></div>
+        
+        <div class="glass-interactive">
+            <h3 style="margin-bottom: 10px; text-align: center;">🦋 Tap each butterfly to read my notes!</h3>
+            <div class="butterfly-box">
+                <div class="bfly" id="bf1" onclick="tapButterfly(1)">🦋</div>
+                <div class="bfly" id="bf2" onclick="tapButterfly(2)">🦋</div>
+                <div class="bfly" id="bf3" onclick="tapButterfly(3)">🦋</div>
+                <div class="bfly" id="bf4" onclick="tapButterfly(4)">🦋</div>
+                <div class="bfly" id="bf5" onclick="tapButterfly(5)">🦋</div>
+            </div>
+            <div class="display-msg" id="messageDisplay">
+                Waiting for your touch...
+            </div>
+            <div style="text-align: center;">
+                <button class="btn" onclick="goPage('page3')">Next: Memories Card →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 3: PHOTO GALLERY -->
+    <div id="page3" class="page">
+        <h2 style="text-shadow: 2px 2px 5px rgba(0,0,0,0.2);">📸 A Few Perfect Moments</h2>
+        <div class="gallery-grid">
+            <!-- Frame 1 -->
+            <div class="photo-frame" style="--rot: -6deg;">
+                <img src="https://picsum.photos/id/1025/300/300" alt="Memory One">
+            </div>
+            <!-- Frame 2 -->
+            <div class="photo-frame" style="--rot: 4deg;">
+                <img src="https://picsum.photos/id/103/300/300" alt="Memory Two">
+            </div>
+            <!-- Frame 3 -->
+            <div class="photo-frame" style="--rot: -3deg;">
+                <img src="https://picsum.photos/id/1062/300/300" alt="Memory Three">
+            </div>
+            <!-- Frame 4 -->
+            <div class="photo-frame" style="--rot: 5deg;">
+                <img src="https://picsum.photos/id/1069/300/300" alt="Memory Four">
+            </div>
+            <!-- Frame 5 -->
+            <div class="photo-frame" style="--rot: -5deg;">
+                <img src="https://picsum.photos/id/64/300/300" alt="Memory Five">
+            </div>
+        </div>
+        <p style="margin-top: 15px; font-size: 0.85rem; opacity: 0.8;">(Tip: Replace the link values in the code with real pictures!)</p>
+        <button class="btn" onclick="goPage('page4')">Keep Going →</button>
+    </div>
+
+    <!-- PAGE 4: SPECIAL WISH TITLE -->
+    <div id="page4" class="page">
+        <div class="thangoo-card text-center">
+            <p style="font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px;">Happy Birthday To My</p>
+            <h1 class="big-title">LOVELY THANGOO</h1>
+            <p style="font-size: 1.1rem; opacity: 0.9;">You deserve the absolute universe and more today! 🌟</p>
+            <button class="btn" onclick="goPage('page5')">Read My Letter ✉️</button>
+        </div>
+    </div>
+
+    <!-- PAGE 5: LONG SENTENCE LETTER (MOBILE RESPONSIVE) -->
+    <div id="page5" class="page">
+        <div class="glass-card long-wish-card">
+            <h2>💝 My Birthday Promise to You Thangoo❤️‍🩹</h2>
+            <p class="paragraph-wish">
+                On this beautiful day, I want you to know how deeply incredibly proud I am to have you in my life. Your smile has a unique magic that instantly brightens the darkest of days, and your pure, golden heart brings comfort to everyone around you. As you step beautifully into this next wonderful chapter of your life, I wish you endless laughter, unwavering peace of mind, and the strength to confidently chase down every single dream growing inside your mind. Never forget how much you are cherished, valued, and loved for exactly who you are. Happy Birthday! Let's celebrate your beautiful existence today and always! 🎉✨
+            </p>
+            <button class="btn" onclick="goPage('page1')">🔄 Open Again</button>
+        </div>
+    </div>
+
+    <script>
+        // Smooth Page Transitions
+        function goPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            
+            // Generate festive background items if entering Page 2
+            if(pageId === 'page2') {
+                initCelebrationElements();
+            }
+        }
+
+        // Login Check
+        function verifyLogin() {
+            const val = document.getElementById('passInput').value.trim().toLowerCase();
+            const err = document.getElementById('errorMsg');
+            if (val === 'thangoo') {
+                err.style.display = 'none';
+                goPage('page2');
+            } else {
+                err.style.display = 'block';
+            }
+        }
+
+        // Butterfly Dynamic Message Repository
+        const dynamicWishes = {
+            1: "🎈 Wish 1: May this day bring you endless smiles and beautiful giggles!",
+            2: "🧁 Wish 2: Wishing you good health, amazing achievements, and great peace.",
+            3: "✨ Wish 3: Never change your beautiful nature; you are incredibly rare.",
+            4: "🍕 Wish 4: Eat all the cake and treats you want today—no calorie counting!",
+            5: "💫 Wish 5: May this year unlock every door to success you knock on!"
+        };
+
+        function tapButterfly(id) {
+            const display = document.getElementById('messageDisplay');
+            // Quick bounce animation effect on text load
+            display.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                display.innerText = dynamicWishes[id];
+                display.style.transform = 'scale(1)';
+            }, 100);
+        }
+
+        // Generate Balloons and Confetti via JS loops
+        function initCelebrationElements() {
+            const container = document.getElementById('celebrationLayer');
+            container.innerHTML = ''; // reset container safely
+            
+            const colors = ['#ff6b81', '#ffea75', '#23a6d5', '#55efc4', '#a29bfe'];
+            
+            // Build 12 Randomized Floating Balloons
+            for (let i = 0; i < 12; i++) {
+                let ball = document.createElement('div');
+                ball.className = 'balloon';
+                ball.style.left = Math.random() * 90 + '%';
+                ball.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                ball.style.animationDelay = Math.random() * 5 + 's';
+                ball.style.animationDuration = 6 + Math.random() * 5 + 's';
+                container.appendChild(ball);
+            }
+
+            // Build 30 Dropping Confetti papers
+            for (let j = 0; j < 35; j++) {
+                let paper = document.createElement('div');
+                paper.className = 'confetti';
+                paper.style.left = Math.random() * 100 + '%';
+                paper.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                paper.style.animationDelay = Math.random() * 4 + 's';
+                paper.style.animationDuration = 4 + Math.random() * 4 + 's';
+                container.appendChild(paper);
+            }
+        }
+    </script>
+</body>
+</html>
